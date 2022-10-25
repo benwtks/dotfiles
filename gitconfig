@@ -1,0 +1,22 @@
+[user]
+  name = Ben Watkins
+  email = contact@benwtks.com
+[alias]
+  c = commit -m
+  s = status
+  b = branch
+  a = add
+  p = push
+  d = diff
+  ds = diff --staged
+  l = log
+  unstage = reset HEAD
+  ca = commit --amend -m
+  call = commit -a -m
+  po = push origin
+[credential]
+  helper = cache --timeout=3600000
+[color]
+  ui = auto
+[include]
+  path = ~/dotfiles-arm/gitconfig
