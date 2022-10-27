@@ -2,6 +2,7 @@
 "
 " TODO: Look into and set up markdown
 " TODO: Setup limelight
+" TODO: (not vim but) fix zsh autosuggest
 " TODO: Set up tags
 " TODO: Set up debugger
 " TODO: Set up git grep shortcut
