@@ -351,8 +351,7 @@ let g:which_key_map.g = {
   \ 'r': [':G remote', 'Remote'],
   \ 'p': {
     \ 'name': '+push',
-    \ 'p': [':Git push origin main', 'main'],
-    \ 'P': [':Git push origin master', 'master'],
+    \ 'p': [':Git push', 'push'],
     \ 'm': [':Git push origin HEAD:refs/for/master', 'HEAD:refs/for/master'],
     \ 't': [':Git push origin HEAD:refs/for/trunk', 'HEAD:refs/for/trunk'],
     \ 'o': [':echo "Work in Progress"', 'HEAD:/refs/for/_____'],
