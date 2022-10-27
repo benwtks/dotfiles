@@ -2,7 +2,6 @@
 "
 " TODO: Look into and set up markdown
 " TODO: Setup limelight
-" TODO: Set up presentation plugin
 " TODO: Set up tags
 " TODO: Set up debugger
 " TODO: Set up git grep shortcut
@@ -278,7 +277,6 @@ set timeoutlen=500
 
 " Define prefix dictionary
 let g:which_key_map =  {
-  \ 'h': [':History', 'History'],
   \ 'n': [':NERDTreeToggle', 'NERDTree toggle'],
   \ 'u': [':MundoToggle', 'Undo tree'],
   \ 'r': [':source $MYVIMRC', 'Reload init.vim']
@@ -308,17 +306,21 @@ let g:which_key_map.o = {
   \ 't': [':split | resize 20 | term', 'Terminal'],
   \ }
 
+let g:which_key_map.s = {
+  \ 'name': '+search',
+  \ ':': [':History:', 'Command history'],
+  \ '/': [':History/', 'Search history'],
+  \ 't': [':Tags', 'Search tags'],
+  \ 'T': [':BTags', 'Search tags in all buffer'],
+  \ 's': [':BLines', 'Search lines'],
+  \ 'S': [':Lines', 'Search lines in all buffers'],
+  \ }
+
 let g:which_key_map.e = {
   \ 'name': '+edit',
   \ 'w': [':%s/\s\+$//e | ;;', 'Remove trailing whitespace'],
   \ 'm': [':set ma', 'Set modifiable'],
   \ 'l': [':Limelight', 'Limelight'],
-  \ 's': [':BLines', 'Search lines'],
-  \ 'S': [':Lines', 'Search lines in all buffers'],
-  \ 't': [':Tags', 'Search tags'],
-  \ 'T': [':BTags', 'Search tags in all buffer'],
-  \ 'h': [':History:', 'Command history'],
-  \ 'H': [':History/', 'Search history'],
   \ }
 
 let g:which_key_map.g = {
@@ -338,8 +340,8 @@ let g:which_key_map.g = {
     \ 'name': '+push',
     \ 'p': [':Git push origin main', 'main'],
     \ 'P': [':Git push origin master', 'master'],
-    \ 'm': [':Git push origin HEAD:/refs/for/master', 'HEAD:/refs/for/master'],
-    \ 't': [':Git push origin HEAD:/refs/for/trunk', 'HEAD:/refs/for/trunk'],
+    \ 'm': [':Git push origin HEAD:refs/for/master', 'HEAD:refs/for/master'],
+    \ 't': [':Git push origin HEAD:refs/for/trunk', 'HEAD:refs/for/trunk'],
     \ 'o': [':echo "Work in Progress"', 'HEAD:/refs/for/_____'],
     \ },
   \ 'P': [':Git pull', 'Push'],
