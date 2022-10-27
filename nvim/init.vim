@@ -16,7 +16,6 @@
 " open files and search for functions from the output in vim.
 " TODO: look at this https://github.com/ThePrimeagen/git-worktree.nvim
 " TODO: Add merge conflict
-" TODO: learn how to select part of file to stage
 " TODO: Add autocomplete
 " TODO: Add intellisense for C, maybe look and see what other c plugins would
 " be useful
@@ -314,7 +313,8 @@ let g:which_key_map.o = {
   \ 'p': [':ProjectFiles', 'Project file'],
   \ 'd': [':Dot', 'Dotfiles'],
   \ 'i': [':e $MYVIMRC', 'init.vim'],
-  \ 't': [':split | resize 20 | term', 'Terminal'],
+  \ 't': [':split | resize 20 | term', 'Terminal (split)'],
+  \ 'T': [':tabnew | term', 'Terminal (tab)'],
   \ }
 
 let g:which_key_map.s = {
@@ -351,12 +351,13 @@ let g:which_key_map.g = {
   \ 'r': [':G remote', 'Remote'],
   \ 'p': {
     \ 'name': '+push',
-    \ 'p': [':Git push', 'push'],
+    \ 'p': [':Git push origin main', 'main'],
+    \ 'P': [':Git push origin master', 'master'],
     \ 'm': [':Git push origin HEAD:refs/for/master', 'HEAD:refs/for/master'],
     \ 't': [':Git push origin HEAD:refs/for/trunk', 'HEAD:refs/for/trunk'],
     \ 'o': [':echo "Work in Progress"', 'HEAD:/refs/for/_____'],
     \ },
-  \ 'P': [':Git pull', 'Push'],
+  \ 'P': [':Git pull --rebase', 'Pull (rebase)'],
   \ 'n': [':GitGutterNextHunk','Next hunk'],
   \ 'N': [':GitGutterPrevHunk', 'Prev hunk'],
   \ 'u': [':GitGutterUndoHunk', 'Undo hunk'],
@@ -372,6 +373,19 @@ let g:which_key_map.p = {
   \ 'c': [':PlugClean', 'Clean'],
   \ 's': [':PlugStatus', 'Status'],
   \ }
+
+let g:which_key_map.t = {
+  \ 'name': '+tab',
+  \ 't': [':tabs', 'List tabs'],
+  \ 'o': [':tabnew', 'Open'],
+  \ 'p': [':tabprev', 'Previous'],
+  \ 'n': [':tabnext', 'Next'],
+  \ '0': [':tabfirst', 'First tab'],
+  \ '9': [':tablast', 'Last tab'],
+  \ 'q': [':q', 'Quit'],
+  \ }
+
+
 
 autocmd VimEnter * call which_key#register('<Space>', "g:which_key_map")
 
