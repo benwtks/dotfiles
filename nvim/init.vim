@@ -164,7 +164,7 @@ let g:airline_section_error = ''
 set rtp+=/usr/local/opt/fzf
 autocmd! FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-command! -bang ProjectFiles call fzf#vim#files('~', <bang>0)
+command! -bang ProjectFiles call fzf#vim#files('/work', <bang>0)
 command! -bang Dot call fzf#vim#files('~/dotfiles', <bang>0)
 
 function! Bufs()
@@ -184,6 +184,10 @@ command! BufferQuit call fzf#run(fzf#wrap({
   \ 'options': '--multi --bind ctrl-a:select-all+accept'
 \ }))
 
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number -- '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
 " }}}
 
@@ -321,7 +325,8 @@ let g:which_key_map.s = {
   \ 'T': [':BTags', 'Search tags in all buffer'],
   \ 'l': [':BLines', 'Search lines'],
   \ 'L': [':Lines', 'Search lines in all buffers'],
-  \ 's': [':Ag', 'Ag'],
+  \ 's': [':GGrep', 'Git grep'],
+  \ 'a': [':Ag', 'Ag (depends on path)'],
   \ }
 
 let g:which_key_map.e = {
