@@ -11,9 +11,9 @@
   ds = diff --staged
   l = log
   unstage = reset HEAD
+  us = reset HEAD
   ca = commit --amend -m
   call = commit -a -m
-  po = push origin
 [credential]
   helper = cache --timeout=3600000
 [color]
