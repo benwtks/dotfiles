@@ -14,6 +14,12 @@
 " this is done, we can add a shortcut to execute this from vim and have it
 " open the output in a new split. With the above tasks, we can then easily
 " open files and search for functions from the output in vim.
+" TODO: look at this https://github.com/ThePrimeagen/git-worktree.nvim
+" TODO: Add merge conflict
+" TODO: learn how to select part of file to stage
+" TODO: Add autocomplete
+" TODO: Add intellisense for C, maybe look and see what other c plugins would
+" be useful
 
 " Plugins {{{
 
@@ -313,8 +319,9 @@ let g:which_key_map.s = {
   \ '/': [':History/', 'Search history'],
   \ 't': [':Tags', 'Search tags'],
   \ 'T': [':BTags', 'Search tags in all buffer'],
-  \ 's': [':BLines', 'Search lines'],
-  \ 'S': [':Lines', 'Search lines in all buffers'],
+  \ 'l': [':BLines', 'Search lines'],
+  \ 'L': [':Lines', 'Search lines in all buffers'],
+  \ 's': [':Ag', 'Ag'],
   \ }
 
 let g:which_key_map.e = {
