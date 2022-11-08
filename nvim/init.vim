@@ -312,14 +312,17 @@ let g:which_key_map.o = {
   \ 'b': [':split | resize 20 | e /work/driver/build.sh', 'build.sh'],
   \ }
 
+map <leader>sT :Tags <C-r>0<CR>
+map <leader>sS :GGrep <C-r>0<CR>
+map <leader>sL :Lines <C-r>0<CR>
+map <leader>sA :Ag <C-r>0<CR>
+
 let g:which_key_map.s = {
   \ 'name': '+search',
   \ ':': [':History:', 'Command history'],
   \ '/': [':History/', 'Search history'],
   \ 't': [':Tags', 'Search tags'],
-  \ 'T': [':BTags', 'Search tags in all buffer'],
-  \ 'l': [':BLines', 'Search lines'],
-  \ 'L': [':Lines', 'Search lines in all buffers'],
+  \ 'l': [':Lines', 'Search lines in all buffers'],
   \ 's': [':GGrep', 'Git grep'],
   \ 'a': [':Ag', 'Ag (depends on path)'],
   \ }
