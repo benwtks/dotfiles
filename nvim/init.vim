@@ -309,7 +309,7 @@ let g:which_key_map.o = {
   \ 'i': [':e $MYVIMRC', 'init.vim'],
   \ 't': [':split | resize 20 | term', 'Terminal (split)'],
   \ 'T': [':tabnew | term', 'Terminal (tab)'],
-  \ 'b': [':tabnew | e /work/driver/build.sh', 'build.sh'],
+  \ 'b': [':split | resize 20 | e /work/driver/build.sh', 'build.sh'],
   \ }
 
 let g:which_key_map.s = {
