@@ -8,12 +8,6 @@
 " TODO: Set up git grep shortcut
 " TODO: Set up search for file from selected - make links from build errors
 " TODO: Easier shortcut for / search from word under cursor
-" TODO: Change build.sh to execute outside of docker. Instead of opening
-" docker and then cd'ing, running build.sh, we can run build.sh and it'll do
-" all of that and run docker with the command it was going to do before. Once
-" this is done, we can add a shortcut to execute this from vim and have it
-" open the output in a new split. With the above tasks, we can then easily
-" open files and search for functions from the output in vim.
 " TODO: look at this https://github.com/ThePrimeagen/git-worktree.nvim
 " TODO: Add merge conflict
 " TODO: Add autocomplete
@@ -334,6 +328,7 @@ let g:which_key_map.e = {
   \ 'w': [':%s/\s\+$//e | ;;', 'Remove trailing whitespace'],
   \ 'm': [':set ma', 'Set modifiable'],
   \ 'l': [':Limelight', 'Limelight'],
+  \ 'b': [':tabnew | tabm 0 | term zsh -c -i "build"', 'Build'],
   \ }
 
 let g:which_key_map.g = {
