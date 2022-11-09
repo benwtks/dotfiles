@@ -150,6 +150,8 @@ let g:airline_section_warning = ''
 let g:airline_section_error = ''
 
 
+let g:airline#extensions#taglist#enabled = 0
+
 " }}}
 
 " fzf {{{
@@ -228,6 +230,25 @@ let g:limelight_paragraph_span = 0
 
 " }}}
 
+" Taglist {{{
+
+" Leave space for NERDTree and Git blame
+let Tlist_Use_Right_Window = 1
+
+" Just makes sense, plus matches NERDTree
+let Tlist_GainFocus_On_ToggleOpen = 1
+
+" Less confusing
+let Tlist_Show_One_File = 1
+
+" Exit Taglist if nothing else is open
+let Tlist_Exit_OnlyWindow = 1
+
+" Quicker
+let Tlist_Use_SingleClick = 1
+
+" }}}
+
 " }}}
 
 " vimrc settings {{{
@@ -282,7 +303,10 @@ set timeoutlen=500
 let g:which_key_map =  {
   \ 'n': [':NERDTreeToggle', 'NERDTree toggle'],
   \ 'u': [':MundoToggle', 'Undo tree'],
-  \ 'r': [':source $MYVIMRC', 'Reload init.vim']
+  \ 'r': [':source $MYVIMRC', 'Reload init.vim'],
+  \ 'l': [':Limelight', 'Limelight'],
+  \ 'B': [':tabnew | tabm 0 | term zsh -c -i "build"', 'Build'],
+  \ 'T': [':TlistToggle', 'Toggle taglist'],
   \ }
 
 let g:which_key_map.b = {
@@ -330,8 +354,6 @@ let g:which_key_map.e = {
   \ 'name': '+edit',
   \ 'w': [':%s/\s\+$//e | ;;', 'Remove trailing whitespace'],
   \ 'm': [':set ma', 'Set modifiable'],
-  \ 'l': [':Limelight', 'Limelight'],
-  \ 'b': [':tabnew | tabm 0 | term zsh -c -i "build"', 'Build'],
   \ }
 
 let g:which_key_map.g = {
