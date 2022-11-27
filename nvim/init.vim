@@ -159,6 +159,7 @@ command! -bang ProjectFiles call fzf#vim#files('/work', <bang>0)
 command! -bang Dot call fzf#vim#files('~/dotfiles', <bang>0)
 command! -bang Arm call fzf#vim#files('~/dotfiles-arm', <bang>0)
 command! -bang Notes call fzf#vim#files('~/notes', <bang>0)
+command! -bang ArmNotes call fzf#vim#files('~/arm-notes', <bang>0)
 
 function! Bufs()
   redir => list
@@ -274,12 +275,12 @@ require('mkdnflow').setup({
         MkdnTablePrevCell = {'i', '<S-Tab>'},
         MkdnTableNextRow = false,
         MkdnTablePrevRow = {'i', '<M-CR>'},
-        MkdnTableNewRowBelow = {'n', '<leader>nr'},
-        MkdnTableNewRowAbove = {'n', '<leader>nR'},
-        MkdnTableNewColAfter = {'n', '<leader>nc'},
-        MkdnTableNewColBefore = {'n', '<leader>nC'},
-        MkdnFoldSection = {'n', '<leader>nf'},
-        MkdnUnfoldSection = {'n', '<leader>nF'}
+        MkdnTableNewRowBelow = {'n', '<leader>ar'},
+        MkdnTableNewRowAbove = {'n', '<leader>aR'},
+        MkdnTableNewColAfter = {'n', '<leader>ac'},
+        MkdnTableNewColBefore = {'n', '<leader>aC'},
+        MkdnFoldSection = {'n', '<leader>af'},
+        MkdnUnfoldSection = {'n', '<leader>aF'}
     }
 })
 EOF
@@ -352,7 +353,7 @@ set timeoutlen=500
 
 " Define prefix dictionary
 let g:which_key_map =  {
-  \ 'f': [':NERDTreeToggle', 'NERDTree toggle'],
+  \ 'n': [':NERDTreeToggle', 'NERDTree toggle'],
   \ 'u': [':MundoToggle', 'Undo tree'],
   \ 'r': [':source $MYVIMRC', 'Reload init.vim'],
   \ 'l': [':Limelight', 'Limelight'],
@@ -361,9 +362,10 @@ let g:which_key_map =  {
   \ 'c': [':term zsh -c -i "buildclean"', 'Clean builds'],
   \ }
 
-let g:which_key_map.n =  {
+let g:which_key_map.a =  {
   \ 'name': '+notes',
-  \ 'o': [':e ~/notes/index.md', 'index.md'],
+  \ 'p': [':e ~/notes/index.md', 'Personal index.md'],
+  \ 'w': [':e ~/arm-notes/index.md', 'Work index.md'],
   \ }
 
 let g:which_key_map.b = {
@@ -388,6 +390,7 @@ let g:which_key_map.o = {
   \ 'd': [':Dot', 'Dotfiles'],
   \ 'a': [':Arm', 'Arm Dotfiles'],
   \ 'n': [':Notes', 'Notes'],
+  \ 'w': [':ArmNotes', 'Arm Notes'],
   \ 'i': [':e $MYVIMRC', 'init.vim'],
   \ 't': [':split | resize 20 | term', 'Terminal (split)'],
   \ 'T': [':tabnew | term', 'Terminal (tab)'],
