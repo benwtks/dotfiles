@@ -1,18 +1,12 @@
 " init.vim @benwtks
 "
 " TODO: Look into and set up markdown
-" TODO: Setup limelight
 " TODO: (not vim but) fix zsh autosuggest
 " TODO: Set up tags
 " TODO: Set up debugger
-" TODO: Set up git grep shortcut
-" TODO: Set up search for file from selected - make links from build errors
-" TODO: Easier shortcut for / search from word under cursor
-" TODO: look at this https://github.com/ThePrimeagen/git-worktree.nvim
-" TODO: Add merge conflict
 " TODO: Add autocomplete
-" TODO: Add intellisense for C, maybe look and see what other c plugins would
-" be useful
+" TODO: Add intellisense for C, maybe other c plugins
+" TODO: Get a theme that supports treesitter
 
 " Plugins {{{
 
@@ -40,9 +34,12 @@ Plug 'junegunn/fzf.vim'
 Plug 'yegappan/taglist'
 Plug 'rhysd/vim-grammarous'
 Plug 'jakewvincent/mkdnflow.nvim'
-Plug 'junegunn/limelight.vim'
 Plug 'airblade/vim-gitgutter'
-
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'machakann/vim-highlightedyank'
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 
 call plug#end()            " required
 filetype plugin indent on    " required
@@ -160,6 +157,8 @@ autocmd! FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 command! -bang ProjectFiles call fzf#vim#files('/work', <bang>0)
 command! -bang Dot call fzf#vim#files('~/dotfiles', <bang>0)
+command! -bang Arm call fzf#vim#files('~/dotfiles-arm', <bang>0)
+command! -bang Notes call fzf#vim#files('~/notes', <bang>0)
 
 function! Bufs()
   redir => list
@@ -216,20 +215,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " autocmd VimEnter * call StartUp()
 " }}}
 
-" Limelight {{{
-
-" Color name (:help cterm-colors) or ANSI code
-let g:limelight_conceal_ctermfg = 'gray'
-let g:limelight_conceal_ctermfg = 240
-
-" Default: 0.5
-let g:limelight_default_coefficient = 0.7
-
-" Number of preceding/following paragraphs to include (default: 0)
-let g:limelight_paragraph_span = 0
-
-" }}}
-
 " Taglist {{{
 
 " Leave space for NERDTree and Git blame
@@ -246,6 +231,72 @@ let Tlist_Exit_OnlyWindow = 1
 
 " Quicker
 let Tlist_Use_SingleClick = 1
+
+" }}}
+
+" Markdownflow {{{
+
+autocmd FileType markdown inoremap <CR> <Cmd>:MkdnNewListItem<CR>
+
+lua <<EOF
+require('mkdnflow').setup({
+    perspective = {
+        priority = 'root',
+        fallback = 'current',
+        root_tell = 'index.md',
+        nvim_wd_heel = true
+    },
+    mappings = {
+        MkdnEnter = {{'n', 'v'}, '<CR>'},
+        MkdnTab = false,
+        MkdnSTab = false,
+        MkdnNextLink = {'n', '<Tab>'},
+        MkdnPrevLink = {'n', '<S-Tab>'},
+        MkdnNextHeading = {'n', ']]'},
+        MkdnPrevHeading = {'n', '[['},
+        MkdnGoBack = {'n', '<BS>'},
+        MkdnGoForward = {'n', '<Del>'},
+        MkdnFollowLink = false, -- see MkdnEnter
+        MkdnDestroyLink = {'n', '<M-CR>'},
+        MkdnTagSpan = {'v', '<M-CR>'},
+        MkdnMoveSource = {'n', '<F2>'},
+        MkdnYankAnchorLink = {'n', 'ya'},
+        MkdnYankFileAnchorLink = {'n', 'yfa'},
+        MkdnIncreaseHeading = {'n', '+'},
+        MkdnDecreaseHeading = {'n', '-'},
+        MkdnToggleToDo = {{'n', 'v'}, '<C-Space>'},
+        MkdnNewListItem = false,
+        MkdnNewListItemBelowInsert = {'n', 'o'},
+        MkdnNewListItemAboveInsert = {'n', 'O'},
+        MkdnExtendList = false,
+        MkdnUpdateNumbering = {'n', '<leader>nn'},
+        MkdnTableNextCell = {'i', '<Tab>'},
+        MkdnTablePrevCell = {'i', '<S-Tab>'},
+        MkdnTableNextRow = false,
+        MkdnTablePrevRow = {'i', '<M-CR>'},
+        MkdnTableNewRowBelow = {'n', '<leader>nr'},
+        MkdnTableNewRowAbove = {'n', '<leader>nR'},
+        MkdnTableNewColAfter = {'n', '<leader>nc'},
+        MkdnTableNewColBefore = {'n', '<leader>nC'},
+        MkdnFoldSection = {'n', '<leader>nf'},
+        MkdnUnfoldSection = {'n', '<leader>nF'}
+    }
+})
+EOF
+" }}}
+
+" Other {{{
+
+let g:coq_settings = { 'auto_start': 'shut-up' }
+
+let g:highlightedyank_highlight_duration = 80
+lua <<EOF
+require('nvim-treesitter.configs').setup {
+  ensure_installed = "all",
+  hightlight = { enable = true },
+  indent = { enable = true }
+}
+EOF
 
 " }}}
 
@@ -301,12 +352,18 @@ set timeoutlen=500
 
 " Define prefix dictionary
 let g:which_key_map =  {
-  \ 'n': [':NERDTreeToggle', 'NERDTree toggle'],
+  \ 'f': [':NERDTreeToggle', 'NERDTree toggle'],
   \ 'u': [':MundoToggle', 'Undo tree'],
   \ 'r': [':source $MYVIMRC', 'Reload init.vim'],
   \ 'l': [':Limelight', 'Limelight'],
   \ 'B': [':tabnew | tabm 0 | term zsh -c -i "build"', 'Build'],
   \ 'T': [':TlistToggle', 'Toggle taglist'],
+  \ 'c': [':term zsh -c -i "buildclean"', 'Clean builds'],
+  \ }
+
+let g:which_key_map.n =  {
+  \ 'name': '+notes',
+  \ 'o': [':e ~/notes/index.md', 'index.md'],
   \ }
 
 let g:which_key_map.b = {
@@ -329,6 +386,8 @@ let g:which_key_map.o = {
   \ 'f': [':GFiles', 'GFile'],
   \ 'p': [':ProjectFiles', 'Project file'],
   \ 'd': [':Dot', 'Dotfiles'],
+  \ 'a': [':Arm', 'Arm Dotfiles'],
+  \ 'n': [':Notes', 'Notes'],
   \ 'i': [':e $MYVIMRC', 'init.vim'],
   \ 't': [':split | resize 20 | term', 'Terminal (split)'],
   \ 'T': [':tabnew | term', 'Terminal (tab)'],
