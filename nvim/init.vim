@@ -2,11 +2,19 @@
 "
 " TODO: Look into and set up markdown
 " TODO: (not vim but) fix zsh autosuggest
-" TODO: Set up tags
 " TODO: Set up debugger
-" TODO: Add autocomplete
 " TODO: Add intellisense for C, maybe other c plugins
-" TODO: Get a theme that supports treesitter
+" TODO: Get a theme that supports treesitter highlighting
+" TODO: add shortcut to yiw and <space>sT or <space>sS
+" TODO: fix ctrl+h 'no more markers', not sure where from
+
+" Building
+" TODO: shortcut to list builds
+" TODO: way to name builds, also give more descriptive names automatically
+" TODO: remove git s from buildclean, just show rm command for trust
+" TODO: add shortcuct to start qemu
+" TODO: add gitdiff to build
+" TODO: interactive build
 
 " Plugins {{{
 
@@ -72,13 +80,16 @@ set undodir=~/dotfiles/nvim/undo
 
 " Indentation {{{
 
-" Set indentation to 4 space tab for html and css
-" autocmd Filetype html setlocal ts=4 sw=4 noexpandtab
-" autocmd Filetype css setlocal ts=4 sw=4 noexpandtab
-
 " Automatically indent
 set autoindent
 
+autocmd Filetype html setlocal ts=2 sw=2 expandtab
+autocmd Filetype c setlocal ts=4 sw=4 noexpandtab
+autocmd Filetype typescript setlocal ts=2 sw=2 expandtab
+autocmd Filetype python setlocal ts=4 sw=4 expandtab
+autocmd BufRead,BufNewFile   *.bp setlocal ts=4 sw=4 expandtab
+autocmd BufRead,BufNewFile   *.Jenkinsfile setlocal ts=4 sw=4 expandtab
+"
 " }}}
 
 " Return character {{{

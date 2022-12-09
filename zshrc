@@ -73,6 +73,8 @@ alias pip3='pip'
 
 alias vim='nvim'
 
+alias gitroot='cd $(git rev-parse --show-toplevel)'
+
 bindkey '^\n' autosuggest-execute
 bindkey '^ ' autosuggest-accept
 
